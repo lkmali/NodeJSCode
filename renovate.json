@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "prHourlyLimit": 1,
+  "prConcurrentLimit": 1,
+  "packageRules": [
+    {
+      "packageNames": [
+        "node"
+      ],
+      "enabled": false
+    }
+  ]
+}

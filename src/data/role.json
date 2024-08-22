@@ -1,0 +1,37 @@
+[
+  {
+    "name": "superAdmin",
+    "description": "application super admin",
+    "isDefaultAdmin": true
+  },
+  {
+    "name": "admin",
+    "description": "client admin role",
+    "isDefaultAdmin": false
+  },
+  {
+    "name": "projectAdmin",
+    "description": "Project Admin",
+    "isDefaultAdmin": false
+  },
+  {
+    "name": "surveyor",
+    "description": "surveyor",
+    "isDefaultAdmin": false
+  },
+  {
+    "name": "dataViewer",
+    "description": "data Viewer",
+    "isDefaultAdmin": false
+  },
+  {
+    "name": "dataEditor",
+    "description": "data Editor",
+    "isDefaultAdmin": false
+  },
+  {
+    "name": "analyst",
+    "description": "Analyst",
+    "isDefaultAdmin": false
+  }
+]

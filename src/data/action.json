@@ -1,0 +1,22 @@
+[
+  {
+    "actionName": "all",
+    "description": "user can do everything"
+  },
+  {
+    "actionName": "read",
+    "description": "user can read"
+  },
+  {
+    "actionName": "write",
+    "description": "user can read"
+  },
+  {
+    "actionName": "remove",
+    "description": "user can remove resource "
+  },
+  {
+    "actionName": "fill",
+    "description": "user can fill from"
+  }
+]

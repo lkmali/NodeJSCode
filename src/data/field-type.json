@@ -1,0 +1,262 @@
+[
+  {
+    "fieldName": "text",
+    "fieldText": "Text",
+    "childRequire": false,
+    "isParent": true,
+    "defaultValue": true,
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-font"
+  },
+  {
+    "fieldName": "note",
+    "fieldText": "Note",
+    "isParent": true,
+    "defaultValue": true,
+    "childRequire": false,
+    "isChildrenField": false,
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-pencil"
+  },
+  {
+    "fieldName": "subForm",
+    "childRequire": true,
+    "isParent": true,
+    "fieldText": "Sub Form",
+    "repeatCountRequire": true,
+    "fabIcon": "fa-solid fa-arrows-repeat"
+  },
+  {
+    "fieldName": "group",
+    "fieldText": "Group",
+    "isParent": true,
+    "childRequire": true,
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-folders"
+  },
+  {
+    "fieldName": "select",
+    "childRequire": true,
+    "isParent": true,
+    "fieldText": "Select One",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-regular fa-ballot-check"
+  },
+  {
+    "fieldName": "multiSelect",
+    "childRequire": true,
+    "isParent": true,
+    "fieldText": "Select Multiple",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-list-check"
+  },
+  {
+    "fieldName": "selectOption",
+    "childRequire": false,
+    "isParent": false,
+    "fieldText": "Select Option",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-option"
+  },
+  {
+    "fieldName": "image",
+    "childRequire": false,
+    "isParent": true,
+    "counter": true,
+    "fieldText": "Image",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-image"
+  },
+  {
+    "fieldName": "integer",
+    "childRequire": false,
+    "isParent": true,
+    "defaultValue": true,
+    "fieldText": "Integer",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-hashtag"
+  },
+  {
+    "fieldName": "geoPoint",
+    "childRequire": false,
+    "isParent": true,
+    "fieldText": "GPS Point",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-location-dot"
+  },
+  {
+    "fieldName": "calculation",
+    "childRequire": false,
+    "fieldText": "Calculation",
+    "isParent": true,
+    "repeatCountRequire": false,
+    "fabIcon": "fa-thin fa-calculator-simple"
+  },
+  {
+    "fieldName": "audio",
+    "childRequire": false,
+    "isParent": true,
+    "fieldText": "Audio",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-thin fa-microphone"
+  },
+  {
+    "fieldName": "video",
+    "childRequire": false,
+    "isParent": true,
+    "fieldText": "Video",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-video"
+  },
+  {
+    "fieldName": "barcode",
+    "childRequire": false,
+    "isParent": true,
+    "fieldText": "Barcode",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-thin fa-barcode"
+  },
+  {
+    "fieldName": "date",
+    "childRequire": false,
+    "isParent": true,
+    "defaultValue": true,
+    "fieldText": "Date",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-calendar-days"
+  },
+  {
+    "fieldName": "dateTime",
+    "childRequire": false,
+    "isParent": true,
+    "defaultValue": true,
+    "fieldText": "Date and Time",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-thin fa-calendar-clock"
+  },
+  {
+    "fieldName": "time",
+    "childRequire": false,
+    "isParent": true,
+    "defaultValue": true,
+    "fieldText": "Time",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-thin fa-timer"
+  },
+  {
+    "fieldName": "decimal",
+    "childRequire": false,
+    "isParent": true,
+    "defaultValue": true,
+    "fieldText": "Decimal",
+    "repeatCountRequire": false,
+    "fabIcon": ""
+  },
+  {
+    "fieldName": "geoTrace",
+    "childRequire": false,
+    "isParent": true,
+    "fieldText": "GPS Line",
+    "repeatCountRequire": false,
+    "fabIcon": "fas fa-map-marked-alt"
+  },
+  {
+    "fieldName": "geoShape",
+    "childRequire": false,
+    "fieldText": "GPS Area",
+    "isParent": true,
+    "repeatCountRequire": false,
+    "fabIcon": "fas fa-globe"
+  },
+  {
+    "fieldName": "range",
+    "childRequire": false,
+    "maxValue": true,
+    "minValue": true,
+    "fieldText": "Range",
+    "isParent": true,
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-arrows-left-right"
+  },
+  {
+    "fieldName": "acknowledge",
+    "childRequire": false,
+    "isParent": true,
+    "defaultValue": true,
+    "fieldText": "Acknowledge",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-check"
+  },
+  {
+    "fieldName": "chart",
+    "childRequire": false,
+    "isParent": true,
+    "fieldText": "Chart",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-solid fa-chart-column"
+  },
+  {
+    "fieldName": "server_calculate",
+    "childRequire": false,
+    "isParent": true,
+    "fieldText": "Server Calculate",
+    "repeatCountRequire": false,
+    "fabIcon": "fas fa-calculator"
+  },
+  {
+    "fieldName": "rank",
+    "childRequire": true,
+    "isParent": true,
+    "fieldText": "Rank",
+    "repeatCountRequire": false,
+    "fabIcon": "fas fa-sort-amount-up"
+  },
+  {
+    "fieldName": "pdf",
+    "isParent": true,
+    "childRequire": false,
+    "fieldText": "file",
+    "repeatCountRequire": false,
+    "fabIcon": "fas fa-file-pdf"
+  },
+  {
+    "fieldName": "xlsx",
+    "isParent": true,
+    "childRequire": false,
+    "fieldText": "file",
+    "repeatCountRequire": false,
+    "fabIcon": "fas fa-file-excel"
+  },
+  {
+    "fieldName": "word",
+    "isParent": true,
+    "childRequire": false,
+    "fieldText": "file",
+    "repeatCountRequire": false,
+    "fabIcon": "fas fa-file-word"
+  },
+  {
+    "fieldName": "ppt",
+    "isParent": true,
+    "childRequire": false,
+    "fieldText": "file",
+    "repeatCountRequire": false,
+    "fabIcon": "fas fa-file-excel"
+  },
+  {
+    "fieldName": "csv",
+    "isParent": true,
+    "childRequire": false,
+    "fieldText": "file",
+    "repeatCountRequire": false,
+    "fabIcon": "fas fa-file-excel"
+  },
+  {
+    "fieldName": "kml",
+    "isParent": true,
+    "childRequire": false,
+    "fieldText": "kml file",
+    "repeatCountRequire": false,
+    "fabIcon": "fa-sharp fa-solid fa-file"
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "clientInformation": {
+    "name": "Laxman"
+  },
+  "organizationInformation": {
+    "orgName": "Laxman",
+    "description": "Laxman",
+    "registrationNumber": "Laxman"
+  },
+  "organizationAddress": {
+    "address": "Laxman",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "country": "India",
+    "pinCode": "307511",
+    "lat": "24.95059",
+    "long": "72.854850"
+  },
+  "userAddress": {
+    "address": "Laxman",
+    "city": "Mumbai",
+    "country": "India",
+    "state": "Maharashtra",
+    "pinCode": "307511",
+    "lat": "24.95059",
+    "long": "72.854850"
+  },
+  "userInformation": {
+    "username": "laxman Kumar mali",
+    "phone": "8442033493",
+    "email": "laxman@laxman.com",
+    "isVerified": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "admin": {
+    "form-data": [
+      "all"
+    ]
+  },
+  "superAdmin": {
+    "form-data": [
+      "all"
+    ]
+  },
+  "sharedUser": {
+    "form-data": [
+      "view"
+    ]
+  }
+}

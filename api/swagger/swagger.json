@@ -1,0 +1,6820 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.100",
+    "title": "Laxman BACKEND API Documentation",
+    "description": "#Laxman BACKEND API Documentation\n---\n"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "parameters": {
+    "authorization": {
+      "name": "authorization",
+      "type": "string",
+      "in": "header",
+      "required": true,
+      "description": "authorization"
+    },
+    "address": {
+      "name": "address",
+      "type": "string",
+      "in": "header",
+      "required": false,
+      "description": "need to pass your location address"
+    },
+    "deviceName": {
+      "name": "deviceName",
+      "type": "string",
+      "in": "header",
+      "required": false,
+      "description": "need to pass that from which device we are using this api"
+    },
+    "platform": {
+      "name": "platform",
+      "type": "string",
+      "in": "header",
+      "required": false,
+      "description": "platform"
+    },
+    "deviceId": {
+      "name": "deviceId",
+      "type": "string",
+      "in": "header",
+      "required": false,
+      "description": "deviceId"
+    },
+    "latitude": {
+      "name": "latitude",
+      "type": "string",
+      "in": "header",
+      "required": false,
+      "description": "latitude"
+    },
+    "longitude": {
+      "name": "longitude",
+      "type": "string",
+      "in": "header",
+      "required": false,
+      "description": "longitude"
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/user/session": {
+      "x-swagger-router-controller": "user",
+      "parameters": [
+        {
+          "$ref": "#/parameters/address"
+        },
+        {
+          "$ref": "#/parameters/deviceName"
+        },
+        {
+          "$ref": "#/parameters/latitude"
+        },
+        {
+          "$ref": "#/parameters/longitude"
+        },
+        {
+          "$ref": "#/parameters/deviceId"
+        },
+        {
+          "$ref": "#/parameters/platform"
+        }
+      ],
+      "post": {
+        "tags": [
+          "UserSession"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "setActiveTime",
+        "summary": "add user address",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/session/notification": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/authorization"
+        }
+      ],
+      "x-swagger-router-controller": "user",
+      "patch": {
+        "tags": [
+          "UserSession"
+        ],
+        "operationId": "sendUserSessionNotification",
+        "summary": "add user address",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user/session": {
+      "x-swagger-router-controller": "user",
+      "get": {
+        "tags": [
+          "UserSession"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllActiveUser",
+        "summary": "get all user session",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "userId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "searchBy",
+            "in": "query",
+            "description": "searchBy",
+            "required": false,
+            "enum": [
+              "session",
+              "user"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "lastActiveTime",
+              "id",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Address"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task/{taskId}/start": {
+      "x-swagger-router-controller": "task",
+      "patch": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "startTask",
+        "summary": "Api for start task",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task/{taskId}": {
+      "x-swagger-router-controller": "task",
+      "put": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateTaskByAdmin",
+        "summary": "update task Data by task Id by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update task",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTaskRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "deleteTasks",
+        "summary": "delete Tasks by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task": {
+      "x-swagger-router-controller": "task",
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllTaskByAdmin",
+        "summary": "get All Task by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task/{taskId}/users/notification": {
+      "x-swagger-router-controller": "task",
+      "patch": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "sendNotificationToTaskUsers",
+        "summary": "update task user update",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/address": {
+      "x-swagger-router-controller": "address",
+      "post": {
+        "tags": [
+          "UserAddress"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "addUserAddress",
+        "summary": "add user address",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "add user address ",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "UserAddress"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserAddress",
+        "summary": "get user address",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Address"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login/phone/request-otp": {
+      "x-swagger-router-controller": "authentication",
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "sendOtp",
+        "summary": "API for send Otp",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "API for send Otp",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OtpRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login/email/password/link": {
+      "x-swagger-router-controller": "authentication",
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "sendResetPasswordLink",
+        "summary": "API for send password link",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "API for send password link",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendResetPasswordLinkRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login/phone": {
+      "x-swagger-router-controller": "authentication",
+      "parameters": [
+        {
+          "$ref": "#/parameters/address"
+        },
+        {
+          "$ref": "#/parameters/deviceName"
+        },
+        {
+          "$ref": "#/parameters/latitude"
+        },
+        {
+          "$ref": "#/parameters/longitude"
+        },
+        {
+          "$ref": "#/parameters/deviceId"
+        },
+        {
+          "$ref": "#/parameters/platform"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "loginPhone",
+        "summary": "Authenticate using otp",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "authenticate using otp",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login/email/password/set": {
+      "x-swagger-router-controller": "authentication",
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "resetPassword",
+        "summary": "reset Password using otp",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "reset Password using otp",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetPasswordRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login/shared-user/{key}": {
+      "x-swagger-router-controller": "authentication",
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "sharedLogin",
+        "summary": "login by shared user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "key",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login/basic": {
+      "x-swagger-router-controller": "authentication",
+      "parameters": [
+        {
+          "$ref": "#/parameters/address"
+        },
+        {
+          "$ref": "#/parameters/deviceName"
+        },
+        {
+          "$ref": "#/parameters/latitude"
+        },
+        {
+          "$ref": "#/parameters/longitude"
+        },
+        {
+          "$ref": "#/parameters/deviceId"
+        },
+        {
+          "$ref": "#/parameters/platform"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "loginWithEmailPassword",
+        "summary": "login user with email and password",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "login user with email and password",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/user": {
+      "x-swagger-router-controller": "authentication",
+      "put": {
+        "tags": [
+          "Authentication"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateUserInformation",
+        "summary": "update user information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "SignRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SignRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/permission": {
+      "x-swagger-router-controller": "permission",
+      "get": {
+        "tags": [
+          "Permission"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getPermission",
+        "summary": "getPermission",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "x-swagger-router-controller": "user",
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserProfile",
+        "summary": "get user profile",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/image/upload-url": {
+      "x-swagger-router-controller": "user",
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserProfileSignUrl",
+        "summary": "get user profile upload url",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Upload Image Request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UploadImageRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/image/upload-conformation": {
+      "x-swagger-router-controller": "user",
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "conformAddedImageUrl",
+        "summary": "conform that image successFully added",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/image/get-url": {
+      "x-swagger-router-controller": "user",
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getImageDownloadSignInUrlForUser",
+        "summary": "get Image Download SignIn Url For User",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user/image/get-url": {
+      "x-swagger-router-controller": "user",
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getImageDownloadSignInUrlFromAdmin",
+        "summary": "get Image Download SignIn Url For User by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "description": "key",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user/{userId}/groups": {
+      "x-swagger-router-controller": "user",
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserAndGroups",
+        "summary": "get User Group by userId",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "name",
+              "description",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "removeUserGroups",
+        "summary": "remove groups from user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": " groups Ids",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user/{userId}/address": {
+      "x-swagger-router-controller": "user",
+      "put": {
+        "tags": [
+          "UserAddress"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateUserAddress",
+        "summary": "update user address by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "add user address ",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "UserAddress"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserAddress",
+        "summary": "get user address by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Address"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user": {
+      "x-swagger-router-controller": "user",
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "registerNewUserByAdmin",
+        "summary": "Register user by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Register user by admin",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegistrationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllUser",
+        "summary": "get All User by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "isBlocked",
+            "in": "query",
+            "description": "isBlocked",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withoutPagination",
+            "in": "query",
+            "description": "withoutPagination",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "minLength": 7,
+            "maxLength": 15,
+            "pattern": "^[0-9()-]+$"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "type": "string",
+            "minLength": 6,
+            "required": false,
+            "maxLength": 50,
+            "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+            "description": "user Email"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "username",
+              "userId",
+              "email",
+              "phone",
+              "description",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user/{userId}": {
+      "x-swagger-router-controller": "user",
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateUserInformationByAdmin",
+        "summary": "update user by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Register user by admin",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegistrationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserInformationByAdmin",
+        "summary": "getUserInformationByAdmin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user/{userId}/status/{status}": {
+      "x-swagger-router-controller": "user",
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "activateInActiveUser",
+        "summary": "activate InActive User by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "status",
+            "required": true,
+            "enum": [
+              "active",
+              "inActive"
+            ],
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/roles": {
+      "x-swagger-router-controller": "role",
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllRoles",
+        "summary": "get All Roles",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/organization/group/{groupId}/status/{status}": {
+      "x-swagger-router-controller": "group",
+      "patch": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "activateInActiveGroup",
+        "summary": "activate InActive group by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "groupId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "status",
+            "required": true,
+            "enum": [
+              "active",
+              "inActive"
+            ],
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/organization/group/{groupId}": {
+      "x-swagger-router-controller": "group",
+      "put": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateGroup",
+        "summary": "update organization Group ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "groupId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update organization group ",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrganizationGroup"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getGroup",
+        "summary": "getGroup",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "groupId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/organization/group/{groupId}/users": {
+      "x-swagger-router-controller": "group",
+      "put": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "addUsersGroup",
+        "summary": "addUsersGroup",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "groupId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": " user emails ",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 50,
+                "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+                "description": "user Email"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "removeGroupUsers",
+        "summary": "remove users from Group",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "groupId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": " userIds",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getOrganizationGroupAndUser",
+        "summary": "get Organization Group And User",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "groupId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/organization/group/{groupId}/projects": {
+      "x-swagger-router-controller": "group",
+      "get": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getOrganizationGroupAndProject",
+        "summary": "get Organization Groups projects",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "groupId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/organization/group/{groupId}/project-forms": {
+      "x-swagger-router-controller": "group",
+      "get": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getOrganizationGroupAndProjectFrom",
+        "summary": "get Organization Group And ProjectFrom",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "groupId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/organization/group": {
+      "x-swagger-router-controller": "group",
+      "post": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "createGroup",
+        "summary": "create organization Group ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "add organization group ",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrganizationGroup"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getOrgGroups",
+        "summary": "getOrgGroups ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "isDelete",
+            "in": "query",
+            "description": "isDelete",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "name",
+              "id",
+              "description",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/organization/group-names": {
+      "x-swagger-router-controller": "group",
+      "get": {
+        "tags": [
+          "OrganizationGroup"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getGroupNames",
+        "summary": "create organization Group ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/super-admin/client": {
+      "x-swagger-router-controller": "client",
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "addClient",
+        "summary": "Register client by super admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Register client by super admin",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClientRegistrationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project-form": {
+      "x-swagger-router-controller": "projectForm",
+      "post": {
+        "tags": [
+          "ProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "createProjectForm",
+        "summary": "create project form",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create project from",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateProjectFormRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllProjectForm",
+        "summary": "get All ProjectForm",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "isDelete",
+            "in": "query",
+            "description": "isDelete",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "searchBy",
+            "in": "query",
+            "description": "searchBy",
+            "required": false,
+            "enum": [
+              "formName",
+              "createdBy"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "name",
+              "id",
+              "description",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project-form-name": {
+      "x-swagger-router-controller": "projectForm",
+      "get": {
+        "tags": [
+          "ProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getProjectFormNames",
+        "summary": "get Project Form Names",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/project-form-field-types": {
+      "x-swagger-router-controller": "projectFormField",
+      "get": {
+        "tags": [
+          "FormFieldType"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllFormFieldType",
+        "summary": "get All Project Filed type",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project-form/{projectFormId}": {
+      "x-swagger-router-controller": "projectForm",
+      "put": {
+        "tags": [
+          "ProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateProjectForm",
+        "summary": "update Project Form",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectFormId",
+            "in": "path",
+            "description": "projectFormId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create project form",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateProjectFormRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getProjectFormByAdmin",
+        "summary": "get project form by ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectFormId",
+            "in": "path",
+            "description": "projectFormId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project-form/{projectFormId}/publish": {
+      "x-swagger-router-controller": "projectForm",
+      "patch": {
+        "tags": [
+          "ProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "publishProjectForm",
+        "summary": " publishProjectForm",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectFormId",
+            "in": "path",
+            "description": "projectFormId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project-form/{projectFormId}/status/{status}": {
+      "x-swagger-router-controller": "projectForm",
+      "patch": {
+        "tags": [
+          "ProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "activateInActiveProjectForm",
+        "summary": "activate InActive projectForm by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectFormId",
+            "in": "path",
+            "description": "projectFormId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "status",
+            "required": true,
+            "enum": [
+              "active",
+              "inActive"
+            ],
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project-form/{projectFormId}/fields": {
+      "x-swagger-router-controller": "projectFormField",
+      "post": {
+        "tags": [
+          "ProjectFormField"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "createProjectFormField",
+        "summary": "create from filed",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectFormId",
+            "in": "path",
+            "description": "projectFormId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create form filed",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CreateProjectFormFieldRequest"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ProjectFormField"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getProjectFormField",
+        "summary": "get project from field",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectFormId",
+            "in": "path",
+            "description": "projectFormId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CreateProjectFormFieldRequest"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project": {
+      "x-swagger-router-controller": "project",
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "createProject",
+        "summary": "create project",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create project",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateProjectRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllProject",
+        "summary": "get All Project",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "isDelete",
+            "in": "query",
+            "description": "isDelete",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "name",
+              "id",
+              "description",
+              "createdAt",
+              "updatedAt",
+              "startDate",
+              "endDate",
+              "priority",
+              "status"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/project": {
+      "x-swagger-router-controller": "project",
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserProject",
+        "summary": "get All Project",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project/{projectId}/groups": {
+      "x-swagger-router-controller": "project",
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getProjectGroupByAdmin",
+        "summary": "get project Group by projectId",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "projectId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project/{projectId}": {
+      "x-swagger-router-controller": "project",
+      "put": {
+        "tags": [
+          "Project"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateProject",
+        "summary": "update Project Data",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "projectId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create project",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateProjectRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getProject",
+        "summary": "getProject",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "projectId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project-names": {
+      "x-swagger-router-controller": "project",
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getProjectNames",
+        "summary": "getProjectNames",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/project/{projectId}/status/{status}": {
+      "x-swagger-router-controller": "project",
+      "patch": {
+        "tags": [
+          "Project"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "activateInActiveProject",
+        "summary": "activate InActive project by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "projectId",
+            "required": true,
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "status",
+            "required": true,
+            "enum": [
+              "active",
+              "inActive"
+            ],
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-project-form/{userFromId}/form-fields": {
+      "x-swagger-router-controller": "userProjectForm",
+      "get": {
+        "tags": [
+          "ProjectFormField"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserFormFieldDataId",
+        "summary": "getUserFormFieldDataId",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userFromId",
+            "in": "path",
+            "description": "userFromId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CreateProjectFormFieldRequest"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-project-form/{projectFormId}/{taskId}/create": {
+      "x-swagger-router-controller": "userProjectForm",
+      "post": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "saveProjectForms",
+        "summary": "save user project form",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectFormId",
+            "in": "path",
+            "description": "projectFormId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create User Project",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserProjectForm"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-project-form/file-upload-url/{fileType}": {
+      "x-swagger-router-controller": "userProjectForm",
+      "post": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getFileSignUrl",
+        "summary": "get file sign url",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fileType",
+            "in": "path",
+            "description": "fileType",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "pdf",
+              "image",
+              "kml",
+              "audio",
+              "video",
+              "xlsx",
+              "word",
+              "ppt",
+              "csv"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "form filed request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FormFieldUploadFileRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/public/file/{key}": {
+      "x-swagger-router-controller": "userProjectForm",
+      "get": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "operationId": "downloadFileByPublic",
+        "summary": "getPublicFileUrl",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "key",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-project-form/file-download-url": {
+      "x-swagger-router-controller": "userProjectForm",
+      "get": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getViewFileUrl",
+        "summary": "getViewFileUrl",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "description": "key",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-project-form/{userFromId}/submit": {
+      "x-swagger-router-controller": "userProjectForm",
+      "patch": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "submitUserProjectFormData",
+        "summary": "submitFormFiled",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userFromId",
+            "in": "path",
+            "description": "userFromId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-project-form": {
+      "x-swagger-router-controller": "userProjectForm",
+      "get": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserAllProjectForm",
+        "summary": "get User All ProjectForm",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "time",
+            "in": "query",
+            "description": "time",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "format",
+            "enum": [
+              "h",
+              "w",
+              "m",
+              "y",
+              "d"
+            ],
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectFormId",
+            "in": "query",
+            "description": "projectFormId",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "title",
+              "status",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-project-form/history": {
+      "x-swagger-router-controller": "userProjectForm",
+      "get": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserProjectFormHistory",
+        "summary": "get User All ProjectForm history",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "time",
+            "in": "query",
+            "description": "time",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "format",
+            "enum": [
+              "h",
+              "w",
+              "m",
+              "y",
+              "d"
+            ],
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectFormId",
+            "in": "query",
+            "description": "projectFormId",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-project-form/location": {
+      "x-swagger-router-controller": "userProjectForm",
+      "get": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getNearByCoordinate",
+        "summary": "get Near ByCoordinate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "latitude",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "longitude",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "maxDistance",
+            "in": "query",
+            "minimum": 1,
+            "description": "redis distance in KM",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-project-form/{userFromId}/fields": {
+      "x-swagger-router-controller": "userProjectForm",
+      "put": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateUserProjectFormData",
+        "summary": "update user project form Data",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userFromId",
+            "in": "path",
+            "description": "userFromId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SaveUserProjectFormFieldRequest"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user-project-form": {
+      "x-swagger-router-controller": "userProjectForm",
+      "get": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserAllProjectFormByAdmin",
+        "summary": "get User All ProjectForm by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "projectFormId",
+            "in": "query",
+            "description": "projectFormId",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "title",
+              "userId",
+              "status",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user-project-form/{userFromId}": {
+      "x-swagger-router-controller": "userProjectForm",
+      "put": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateUserProjectFormStatusByAdmin",
+        "summary": "update User ProjectFormStatusByAdmin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userFromId",
+            "in": "path",
+            "description": "userFromId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create project",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserProjectFormFieldRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/download/user-project-form": {
+      "x-swagger-router-controller": "userProjectForm",
+      "post": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "downloadXlsx",
+        "summary": "update User ProjectFormStatusByAdmin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Download Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DownloadUserProjectFile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user-project-form/{userFromId}/fields": {
+      "x-swagger-router-controller": "userProjectForm",
+      "get": {
+        "tags": [
+          "UserProjectForm"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserFormFieldDataByAdmin",
+        "summary": "get User Project form field by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userFromId",
+            "in": "path",
+            "description": "userFromId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/sharedResource/{resource}": {
+      "x-swagger-router-controller": "sharedResource",
+      "post": {
+        "tags": [
+          "SharedResource"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "sharedResourceToUser",
+        "summary": "share resource to user by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "path",
+            "enum": [
+              "form-data"
+            ],
+            "description": "resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SaveSharedResourceRequest"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "SharedResource"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllSharedResource",
+        "summary": "get User All ProjectForm by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "path",
+            "enum": [
+              "form-data"
+            ],
+            "description": "resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "withoutFilter",
+            "in": "query",
+            "description": "withoutFilter",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "searchBy",
+            "in": "query",
+            "description": "searchBy",
+            "required": false,
+            "enum": [
+              "email",
+              "formTitle",
+              "formFieldBy"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "projectFormId",
+            "in": "query",
+            "description": "projectFormId",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "userFromId",
+            "in": "query",
+            "description": "userFromId",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "email",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/sharedResource/resendEmail/{resource}/{email}": {
+      "x-swagger-router-controller": "sharedResource",
+      "patch": {
+        "tags": [
+          "SharedResource"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "resendEmailToSharedUser",
+        "summary": "resend email to shared user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "path",
+            "enum": [
+              "form-data"
+            ],
+            "description": "resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 50,
+            "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+            "description": "User email"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/sharedResource/remove/{id}": {
+      "x-swagger-router-controller": "sharedResource",
+      "delete": {
+        "tags": [
+          "SharedResource"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "deleteResourceData",
+        "summary": "If admin want to delete resource data",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task-template": {
+      "x-swagger-router-controller": "taskTemplate",
+      "get": {
+        "tags": [
+          "TaskTemplate"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllTaskTemplateByAdmin",
+        "summary": "get All Task by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "id",
+              "name",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "searchBy",
+            "in": "query",
+            "description": "searchBy",
+            "required": false,
+            "enum": [
+              "taskName",
+              "createdBy"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TaskTemplate"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "createTaskTemplate",
+        "summary": "Api for create Template",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create task body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateTaskTemplateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task-template/{taskTemplateId}/publish": {
+      "x-swagger-router-controller": "taskTemplate",
+      "patch": {
+        "tags": [
+          "TaskTemplate"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "publishTaskTemplate",
+        "summary": "Api for publish Task Template",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskTemplateId",
+            "in": "path",
+            "description": "taskTemplateId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/workflow/{workflowId}": {
+      "x-swagger-router-controller": "workflow",
+      "post": {
+        "tags": [
+          "Workflow"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "addWorkflowStage",
+        "summary": "Api for add workflow stage",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "description": "workflowId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create workflow stage body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateWorkflowRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/workflowTemplate/{workflowTemplateId}": {
+      "x-swagger-router-controller": "workflowTemplate",
+      "post": {
+        "tags": [
+          "WorkflowTemplate"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "addWorkflowTemplateStage",
+        "summary": "Api for add workflow stage",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "workflowTemplateId",
+            "in": "path",
+            "description": "workflowTemplateId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create workflow template stage body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateWorkflowTemplateStage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/workflow/{workflowId}/task/template": {
+      "x-swagger-router-controller": "workflowTemplate",
+      "post": {
+        "tags": [
+          "WorkflowTemplate"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "createMultipleTaskUsingTaskTemplate",
+        "summary": "Api for save multiple workflow stage",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "description": "workflowId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create workflow stage body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMultipleTaskRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/workflow/{workflowId}/task": {
+      "x-swagger-router-controller": "workflow",
+      "delete": {
+        "tags": [
+          "Workflow"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "deleteTaskByWorkflowId",
+        "summary": "Api delete all task by workflow Id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "description": "workflowId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user-task": {
+      "x-swagger-router-controller": "task",
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllUserTaskByAdmin",
+        "summary": "get All Task by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "description": "id",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "id",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "searchBy",
+            "in": "query",
+            "description": "searchBy",
+            "required": false,
+            "enum": [
+              "taskName",
+              "projectName",
+              "assignUser"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task/{taskId}/{userId}/approveTask": {
+      "x-swagger-router-controller": "task",
+      "patch": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "approveUserTaskByAdmin",
+        "summary": "update task user update",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task-template/{taskTemplateId}": {
+      "x-swagger-router-controller": "taskTemplate",
+      "put": {
+        "tags": [
+          "TaskTemplate"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateTaskTemplateByAdmin",
+        "summary": "update task Data by task Id by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskTemplateId",
+            "in": "path",
+            "description": "taskTemplateId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update task",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateTaskTemplateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TaskTemplate"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "deleteTaskTemplate",
+        "summary": "delete Tasks by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskTemplateId",
+            "in": "path",
+            "description": "taskTemplateId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task/{taskId}/users": {
+      "x-swagger-router-controller": "task",
+      "put": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "assignTaskToUsers",
+        "summary": "assign Task To Users by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "userIds",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "minLength": 1,
+              "items": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "description": "userId"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "deleteUsersFromTask",
+        "summary": "delete users from task",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user task Ids",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "minLength": 1,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getTaskUserByAdmin",
+        "summary": "get task Users",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/task/{taskId}/project-forms": {
+      "x-swagger-router-controller": "task",
+      "put": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "addProjectFormInTask",
+        "summary": "add form in task by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "form Ids",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "minLength": 1,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "deleteFormFormTask",
+        "summary": "delete form from task",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "task form ids ",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "minLength": 1,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getFormsByTasksByAdmin",
+        "summary": "get task form",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/task": {
+      "x-swagger-router-controller": "task",
+      "get": {
+        "tags": [
+          "UserTask"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getUserTaskByUserId",
+        "summary": "get user task, this Api will user by APK, where user will get all task assign by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "isHomePage",
+            "in": "query",
+            "description": "isHomePage",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "time",
+            "in": "query",
+            "description": "time",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "format",
+            "enum": [
+              "h",
+              "w",
+              "m",
+              "y",
+              "d"
+            ],
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "enum": [
+              1,
+              2,
+              4,
+              6,
+              7,
+              5
+            ],
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "projectId",
+              "id",
+              "name",
+              "taskAddress",
+              "startDate",
+              "endDate",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "searchBy",
+            "in": "query",
+            "description": "searchBy",
+            "required": false,
+            "enum": [
+              "taskName"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/task/{taskId}": {
+      "x-swagger-router-controller": "task",
+      "patch": {
+        "tags": [
+          "UserTask"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "updateStatusByUser",
+        "summary": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update user task",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/task/{taskId}/project-forms": {
+      "x-swagger-router-controller": "task",
+      "get": {
+        "tags": [
+          "UserTask"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getTaskFormsByTaskId",
+        "summary": "get task forms by task Id , where user will get all project forms assign by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "taskId",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/admin/user-event": {
+      "x-swagger-router-controller": "userEvent",
+      "get": {
+        "tags": [
+          "UserEvent"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "getAllUserEvent",
+        "summary": "get All User event by admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "id",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "resourceName",
+            "in": "query",
+            "description": "resourceName",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "resourceId",
+            "in": "query",
+            "description": "resourceId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "eventName",
+            "in": "query",
+            "description": "eventName",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "enum": [
+              "eventName",
+              "userId",
+              "resourceId",
+              "resourceName",
+              "createdAt",
+              "updatedAt"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "minimum": 1,
+            "maximum": 30,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "skip",
+            "minimum": 0,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user-event": {
+      "x-swagger-router-controller": "userEvent",
+      "parameters": [
+        {
+          "$ref": "#/parameters/address"
+        },
+        {
+          "$ref": "#/parameters/deviceName"
+        },
+        {
+          "$ref": "#/parameters/latitude"
+        },
+        {
+          "$ref": "#/parameters/longitude"
+        },
+        {
+          "$ref": "#/parameters/deviceId"
+        },
+        {
+          "$ref": "#/parameters/platform"
+        }
+      ],
+      "post": {
+        "tags": [
+          "UserEvent"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "operationId": "saveUserEvent",
+        "summary": "Save User Event",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "save User Event",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SaveUserEventRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoginPhoneResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "OtpRequest": {
+      "required": [
+        "phone"
+      ],
+      "properties": {
+        "phone": {
+          "type": "string",
+          "pattern": "^[6-9]\\d{9}$"
+        }
+      }
+    },
+    "SendResetPasswordLinkRequest": {
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 50,
+          "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+          "description": "user Email"
+        }
+      }
+    },
+    "ResetPasswordRequest": {
+      "required": [
+        "email",
+        "password",
+        "otp"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 50,
+          "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+          "description": "user Email"
+        },
+        "password": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 30,
+          "pattern": "^(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
+          "description": "user password"
+        },
+        "otp": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginPhoneRequest": {
+      "required": [
+        "phone",
+        "otp"
+      ],
+      "properties": {
+        "phone": {
+          "type": "string",
+          "pattern": "^[6-9]\\d{9}$"
+        },
+        "otp": {
+          "type": "string"
+        }
+      }
+    },
+    "SignRequest": {
+      "required": [
+        "username"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 50,
+          "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+          "description": "This property define the organization admin email  ."
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginPhoneResponse": {
+      "required": [
+        "userId",
+        "token"
+      ],
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "isNewUser": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ClientRegistrationRequest": {
+      "required": [
+        "clientName",
+        "organizationAdminEmail",
+        "organizationAdminName",
+        "organizationsName",
+        "registrationNumber",
+        "organizationAdminPhone"
+      ],
+      "properties": {
+        "clientName": {
+          "type": "string"
+        },
+        "organizationAdminEmail": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 50,
+          "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+          "description": "This property define the organization admin email  ."
+        },
+        "organizationAdminName": {
+          "type": "string"
+        },
+        "organizationsName": {
+          "type": "string"
+        },
+        "registrationNumber": {
+          "type": "string"
+        },
+        "organizationAdminPhone": {
+          "type": "string",
+          "minLength": 7,
+          "maxLength": 15,
+          "pattern": "^[0-9()-]+$"
+        }
+      }
+    },
+    "UserRegistrationRequest": {
+      "required": [
+        "username",
+        "phone",
+        "email",
+        "role",
+        "address"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 50,
+          "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+          "description": "This property define the organization admin email  ."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "admin",
+            "manager",
+            "execution_partner",
+            "surveyor",
+            "acquisitions",
+            "maintenance"
+          ]
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "phone": {
+          "type": "string",
+          "minLength": 7,
+          "maxLength": 15,
+          "pattern": "^[0-9()-]+$"
+        }
+      }
+    },
+    "SaveUserEventRequest": {
+      "required": [
+        "recourseName",
+        "eventName",
+        "recourseId",
+        "comment"
+      ],
+      "properties": {
+        "recourseName": {
+          "type": "string"
+        },
+        "eventName": {
+          "type": "string"
+        },
+        "recourseId": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateProjectFormFieldRequest": {
+      "required": [
+        "title",
+        "fieldType",
+        "sequence"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 2
+        },
+        "id": {
+          "type": "number"
+        },
+        "fieldType": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "string"
+        },
+        "defaultValue": {
+          "type": "string"
+        },
+        "validatePattern": {
+          "type": "string"
+        },
+        "staticValue": {
+          "type": "string"
+        },
+        "maxLength": {
+          "type": "number"
+        },
+        "minLength": {
+          "type": "number"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "minValue": {
+          "type": "number"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "repeatCount": {
+          "type": "number"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateProjectFormFieldRequest"
+          }
+        }
+      }
+    },
+    "SaveUserProjectFormFieldRequest": {
+      "required": [
+        "formFieldId"
+      ],
+      "properties": {
+        "counter": {
+          "type": "number",
+          "minimum": 1
+        },
+        "value": {
+          "type": "string"
+        },
+        "formFieldId": {
+          "type": "number"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "time": {
+          "type": "string"
+        },
+        "dateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Files"
+          }
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Points"
+          }
+        }
+      }
+    },
+    "SaveSharedResourceRequest": {
+      "required": [
+        "permission",
+        "email",
+        "userFromId"
+      ],
+      "properties": {
+        "permission": {
+          "type": "string",
+          "enum": [
+            "all",
+            "view",
+            "edit",
+            "delete",
+            "create"
+          ]
+        },
+        "email": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 50,
+          "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+          "description": "This property define the organization admin email  ."
+        },
+        "userFromId": {
+          "type": "number",
+          "minimum": 1
+        }
+      }
+    },
+    "CreateProjectFormRequest": {
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "CreateProjectRequest": {
+      "required": [
+        "name",
+        "startDate",
+        "endDate",
+        "priority",
+        "projectOwner"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "projectOwner": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 50,
+          "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+          "description": "This property define the organization admin email  ."
+        },
+        "description": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "priority": {
+          "type": "number"
+        }
+      }
+    },
+    "UpdateProjectRequest": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "projectOwner": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 50,
+          "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+          "description": "This property define the organization admin email  ."
+        },
+        "description": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "priority": {
+          "type": "number"
+        }
+      }
+    },
+    "UpdateUserProjectFormFieldRequest": {
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "number",
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "commentByAdmin": {
+          "type": "string"
+        }
+      }
+    },
+    "DownloadUserProjectFile": {
+      "properties": {
+        "sortBy": {
+          "type": "string",
+          "enum": [
+            "id",
+            "createdAt",
+            "updatedAt"
+          ]
+        },
+        "orderBy": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        },
+        "formFieldId": {
+          "type": "array",
+          "maxLength": 10,
+          "items": {
+            "type": "number"
+          }
+        },
+        "userFromId": {
+          "type": "array",
+          "maxLength": 10,
+          "items": {
+            "type": "number"
+          }
+        },
+        "status": {
+          "type": "array",
+          "maxLength": 10,
+          "items": {
+            "type": "number",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        },
+        "projectId": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "type": "string"
+        },
+        "userTaskIds": {
+          "type": "array",
+          "maxLength": 10,
+          "items": {
+            "type": "number"
+          }
+        },
+        "taskId": {
+          "type": "number"
+        }
+      }
+    },
+    "CreateUserProjectForm": {
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "minLength": 2,
+          "type": "string"
+        }
+      }
+    },
+    "UploadImageRequest": {
+      "required": [
+        "imageType",
+        "fileExtension"
+      ],
+      "properties": {
+        "imageType": {
+          "type": "string",
+          "enum": [
+            "image/jpeg",
+            "image/png"
+          ]
+        },
+        "fileExtension": {
+          "type": "string",
+          "enum": [
+            ".jpe",
+            ".jpg",
+            ".png",
+            ".jpeg",
+            ".JPE",
+            ".JPG",
+            ".PNG",
+            ".JPEG"
+          ]
+        },
+        "fileSize": {
+          "type": "number"
+        }
+      }
+    },
+    "FormFieldUploadFileRequest": {
+      "required": [
+        "mimeType",
+        "fileExtension",
+        "projectFormFieldId"
+      ],
+      "properties": {
+        "mimeType": {
+          "type": "string"
+        },
+        "fileExtension": {
+          "type": "string"
+        },
+        "fileSize": {
+          "type": "number"
+        },
+        "projectFormFieldId": {
+          "type": "number"
+        },
+        "counter": {
+          "type": "number",
+          "minimum": 1
+        }
+      }
+    },
+    "Address": {
+      "required": [
+        "address",
+        "city",
+        "country",
+        "state",
+        "pinCode"
+      ],
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string",
+          "pattern": "^[a-zA-Z',.\\s -]{2,25}$"
+        },
+        "state": {
+          "type": "string",
+          "pattern": "^[a-zA-Z',.\\s -]{2,25}$"
+        },
+        "country": {
+          "type": "string"
+        },
+        "pinCode": {
+          "type": "string",
+          "pattern": "^[0-9]\\d{4,10}$"
+        }
+      }
+    },
+    "Points": {
+      "required": [
+        "latitude",
+        "longitude"
+      ],
+      "properties": {
+        "latitude": {
+          "type": "string"
+        },
+        "longitude": {
+          "type": "string"
+        }
+      }
+    },
+    "Files": {
+      "required": [
+        "title",
+        "value"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "value",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        }
+      }
+    },
+    "OrganizationGroup": {
+      "required": [
+        "groupName"
+      ],
+      "properties": {
+        "groupName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateTaskRequest": {
+      "required": [
+        "taskCompleteDurationInDay",
+        "taskAddress",
+        "latitude",
+        "longitude",
+        "priority"
+      ],
+      "properties": {
+        "taskAddress": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "string"
+        },
+        "taskCompleteDurationInDay": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "string"
+        },
+        "taskTemplateId": {
+          "description": "taskTemplateId",
+          "type": "number"
+        },
+        "priority": {
+          "description": "priority",
+          "type": "number"
+        }
+      }
+    },
+    "CreateTaskTemplateRequest": {
+      "required": [
+        "name",
+        "projectFormId"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "isPublish": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "projectFormId": {
+          "type": "number"
+        },
+        "taskAcceptanceCriteria": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateWorkflowRequest": {
+      "required": [
+        "workflowName",
+        "taskTemplateId",
+        "position",
+        "projectId",
+        "taskCompleteDurationInDay",
+        "workflowPosition",
+        "taskAddress",
+        "latitude",
+        "longitude",
+        "userIds"
+      ],
+      "properties": {
+        "workflowName": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "workflowPosition": {
+          "type": "string"
+        },
+        "taskAddress": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "string"
+        },
+        "taskCompleteDurationInDay": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "string"
+        },
+        "taskTemplateId": {
+          "description": "taskTemplateId",
+          "type": "number"
+        },
+        "position": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "userIds": {
+          "type": "array",
+          "minLength": 1,
+          "items": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "userId",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "CreateWorkflowTemplateStage": {
+      "required": [
+        "workflowTemplateName",
+        "taskTemplateId",
+        "position",
+        "workflowPosition"
+      ],
+      "properties": {
+        "workflowTemplateName": {
+          "type": "string"
+        },
+        "taskTemplateId": {
+          "description": "taskTemplateId",
+          "type": "number"
+        },
+        "position": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "workflowPosition": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateMultipleTaskRequest": {
+      "required": [
+        "workflowName",
+        "projectId",
+        "taskTemplateIds"
+      ],
+      "properties": {
+        "workflowName": {
+          "type": "string"
+        },
+        "projectId": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "description": "projectId",
+          "type": "string"
+        },
+        "taskTemplateIds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "UpdateUserStatus": {
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "description": "status",
+          "type": "number",
+          "enum": [
+            1,
+            4
+          ]
+        }
+      }
+    }
+  }
+}
