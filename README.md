@@ -6,7 +6,7 @@
 2. Express.js
 3. Typescript
 4. Postgresql
-5. Swager
+5. Swagger
 6. Docker
 7. JWT
 
