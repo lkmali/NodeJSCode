@@ -1,19 +1,19 @@
 {
-  "name": "@laxman/backend",
+  "name": "NodeJSCode",
   "version": "1.0.0",
   "private": true,
   "description": "backend",
   "keywords": [],
-  "author": "laxman@laxman.com",
+  "author": "laxmanasawa9312@gmail.com",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/laxman/backend.git"
+    "url": "git+https://github.com/lkmali/NodeJSCode.git"
   },
   "bugs": {
-    "url": "https://github.com/laxman/backend/issues"
+    "url": "https://github.com/lkmali/NodeJSCode/issues"
   },
-  "homepage": "https://github.com/laxman/backend#readme",
+  "homepage": "https://github.com/lkmali/NodeJSCode#readme",
   "main": "dist/src/index.js",
   "scripts": {
     "build": "lb-clean dist coverage/backend.tsbuildinfo.json && lb-tsc --copy-resources",
