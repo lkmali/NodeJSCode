@@ -26,7 +26,32 @@ Following are the features of this project:
 * **Docker compose has been configured**: I have created the Dockerfile to provide easy deployability without any setup and configurations. 
 * **A pure backend project**: I have experienced that when a backend is developed clubbed with a frontend then in the future it becomes really difficult to scale. We would want to create a separate backend project that servers many websites and mobile apps.
 
-## How to build and run this project
+# Getting started
+- Clone the repository
+```
+git clone  <git lab template url> <project_name>
+```
+- Install dependencies
+```
+cd <project_name>
+yarn install
+```
+Make a copy of **.env.example** file to **.env**.
+
+- Build and run the project
+```
+npm start
+```
+  Navigate to `http://localhost:8001`
+
+- API Document endpoints
+
+  swagger Spec Endpoint : http://localhost:8001/api-docs 
+
+  swagger-ui  Endpoint : http://localhost:8001/docs 
+
+
+## How to build and run this project on Server
 
 * Install using Docker Compose [**Recommended Method**] 
     * Clone this repo.
