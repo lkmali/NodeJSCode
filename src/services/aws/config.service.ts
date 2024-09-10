@@ -6,10 +6,10 @@ AWS.config = new AWS.Config({
   region: env.AWS_REGION,
   signatureVersion: 'v4'
 })
-class AwsService {
-  public static get awsConfig () {
+class AwsConfigService {
+  public static get awsConfig() {
     return AWS
   }
 }
 
-export const awsConfig = AwsService.awsConfig
+export const awsConfig = AwsConfigService.awsConfig

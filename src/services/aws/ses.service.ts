@@ -1,7 +1,7 @@
 import { isNil } from 'lodash'
 import { env } from '../../config'
 import { EmailRequest } from '../../typings'
-import { awsConfig } from './aws.service'
+import { awsConfig } from './config.service'
 export class EmailService {
   async sendEmail(emailRequest: EmailRequest) {
     const body = !isNil(emailRequest.html)

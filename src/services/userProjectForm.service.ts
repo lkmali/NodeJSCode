@@ -4,9 +4,9 @@ import { IncludeOptions, WhereOptions } from 'sequelize/types'
 import { TaskFormsRepository, TasksRepository, UserFormFieldDataRepository, UserProjectFormRepository, UserTasksRepository } from '../database/repository'
 import { DownloadXlsxRequest, Filter, NearByProject, PaginateDataType, UserProjectForm, UserTaskForms } from '../typings'
 import { badRequest, getPaginateData, getProjectFormQueryForAdmin, getProjectQueryForAdmin, getUserProjectFormQueryForAdmin, getUserQueryForAdmin, inOperator, neOperator, notInOperator, paginate, unauthorized } from '../utils'
-import { UserProjectFormHelperService } from './user-project-form/userProjectFormHelper.service'
+import { UserProjectFormHelperService } from './userProjectForm/userProjectFormHelper.service'
 import { WorkflowService } from './workflow.service'
-import { XlsxService } from './xlsx-services/xlsx.services'
+import { XlsxService } from './xlsx/xlsx.services'
 export class UserProjectFormService {
   private static instance: UserProjectFormService
   private readonly userProjectFormRepository: UserProjectFormRepository

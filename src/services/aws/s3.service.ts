@@ -2,7 +2,7 @@ import { Response } from 'express'
 import { IncomingHttpHeaders } from 'http2'
 import { isNil } from 'lodash'
 import { env } from '../../config'
-import { awsConfig } from './aws.service'
+import { awsConfig } from './config.service'
 export class S3Service {
   private static instance: S3Service
   s3 = new awsConfig.S3()

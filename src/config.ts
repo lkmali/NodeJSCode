@@ -99,7 +99,6 @@ class EnvironmentConfig {
     this.SQL_USER = config?.SQL_USER ?? ''
     this.SQL_PASSWORD = config?.SQL_PASSWORD ?? ''
     this.SQL_DATABASE = config?.SQL_DATABASE ?? ''
-
     this.MESSAGE_BASE_URL = String(config?.MESSAGE_BASE_URL)
     this.MESSAGE_API_KEY = String(config?.MESSAGE_API_KEY)
     this.OTP_TEMPLATED_ID = String(config?.OTP_TEMPLATED_ID)

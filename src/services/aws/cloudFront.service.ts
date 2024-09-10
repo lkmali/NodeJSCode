@@ -1,8 +1,8 @@
 import { env } from '../../config'
-import { awsConfig } from './aws.service'
+import { awsConfig } from './config.service'
 export class S3CloudFrontService {
   cloudFront = new awsConfig.CloudFront.Signer(env.AWS_ACCESS_KEY_ID, env.CLOUD_FRONT_PRIVATE_KEY)
-  async getImageUploadSignInUrl (key: string): Promise<string> {
+  async getImageUploadSignInUrl(key: string): Promise<string> {
     return new Promise((resolve) => {
       const url = this.cloudFront.getSignedUrl({
         url: `${env.AWS_CLOUD_FRONT_BASE_URL}/${key}`,

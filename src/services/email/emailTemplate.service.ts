@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 import { isNil } from 'lodash'
-import { env } from '../config'
-import { CreateEmailTemplateRequest, EmailTemplateRequest, SharedResourceEmailTemplateRequest } from '../typings'
-import { badRequest } from '../utils'
-import { EncryptionService } from './encryption.service'
+import { env } from '../../config'
+import { CreateEmailTemplateRequest, EmailTemplateRequest, SharedResourceEmailTemplateRequest } from '../../typings'
+import { badRequest } from '../../utils'
+import { EncryptionService } from '../encryption.service'
 
 export class EmailTemplateService {
   private static instance: EmailTemplateService

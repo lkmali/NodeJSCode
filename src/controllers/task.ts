@@ -1,7 +1,7 @@
 import { isNil } from 'lodash'
 import { send } from '../provider'
 import { TaskService, UserTaskService } from '../services'
-import { TaskNotificationService } from '../services/task.notification.service'
+import { TaskNotificationService } from '../services/taskNotification.service'
 import { ControllersRequest, UpdateTaskRequest, UserEventRequest } from '../typings'
 import { saveUserEvent } from '../utils'
 
