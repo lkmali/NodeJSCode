@@ -33,14 +33,9 @@ initializeMiddleware(swaggerDocument, (middleware: Middleware20) => {
     }
   }))
 
-  app.set('views', path.join(__dirname, 'views'))
-  app.set('view engine', 'ejs')
-
   new CorsProvider().corsRequest(app)
   // new core().corsConfiguration(app);
 
-  app.set('views', path.join(__dirname, 'views'))
-  app.set('view engine', 'jade')
   app.use(middleware.swaggerUi())
   swaggerUi(app, swaggerDocument)
   app.use(bodyParser.json({ limit: '50mb' }))
