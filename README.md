@@ -75,13 +75,9 @@ yarn start
 
  ## Note
      * Before committing your code please run the below command.
-             ```
-              yarn lint:fix
-     ```
-   
-
-
-
+          ```
+          yarn lint:fix
+          ```
   
  ## Project Directory Structure
  ```
