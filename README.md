@@ -15,9 +15,9 @@ This project is designed for a production-ready environment. In the project, we 
 
 
 # Project Instructions
-Following are the features of this project:
-* **This backend is written in Typescript**: The type safety at build time and having intellisense for it in the IDE like vscode is unparalleled to productivity. I have found production bug reduced to a significant amount since most of the code vulnerabilities are identified during the build phase itself.
-* **Separation of concern principle**: Each component has been given a particular role. The role of the components is mutually exclusive. This makes the project easy to be unit tested.
+The following are the features of this project:
+* **This backend is written in Typescript**: The type safety at build time and having intellisense for it in the IDE like vscode is unparalleled to productivity. I have found that the production bug was reduced significantly since most of the code vulnerabilities were identified during the build phase.
+* **Separation of concern principle**: Each component has been given a particular role. The role of the components is mutually exclusive. This makes the project easy to be unit test.
 * **Feature encapsulation**: The files or components that are related to a particular feature have been grouped unless those components are required in multiple features. This enhances the ability to share code across projects.
 * **Centralised Error Handling**: I have created a framework where all the errors are handled centrally. This reduces the ambiguity in the development when the project grows larger.
 * **Centralised Response handling**: Similar to Error handling we have a response handling framework. This makes it very convenient to apply a common API response pattern.
@@ -27,6 +27,8 @@ Following are the features of this project:
 * **A pure backend project**: I have experienced that when a backend is developed clubbed with a frontend then in the future it becomes really difficult to scale. We would want to create a separate backend project that servers many websites and mobile apps.
 
 # Getting started
+## How to install and run in local
+
 - Clone the repository
 ```
 git clone  <git lab template url> <project_name>
@@ -34,21 +36,27 @@ git clone  <git lab template url> <project_name>
 - Install dependencies
 ```
 cd <project_name>
+
 yarn install
 ```
 Make a copy of **.env.example** file to **.env**.
 
+
 - Build and run the project
 ```
-npm start
+yarn start
 ```
-  Navigate to `http://localhost:8001`
+  Navigate to `http://localhost:3000`
 
 - API Document endpoints
 
-  swagger Spec Endpoint : http://localhost:8001/api-docs 
+  swagger Spec Endpoint: http://localhost:3000/api-docs 
 
-  swagger-ui  Endpoint : http://localhost:8001/docs 
+  swagger-ui  Endpoint: http://localhost:3000/docs
+
+
+
+  
 
 
 ## How to build and run this project on Server
@@ -59,9 +67,19 @@ npm start
 
     * Install Docker and Docker Compose. [Find Instructions Here](https://docs.docker.com/install/).
     * Execute `docker-compose up -d` in the terminal from the repo directory.
-    * You will be able to access the api from http://localhost:3000
-    * *If having any issue* then make sure 3000 port is not occupied else provide a different port in **.env** file.
-    * *If having any issue* then make sure 27017 port is not occupied else provide a different port in **.env** file.
+    * You will be able to access the API from http://localhost:3000
+    * *If having any issues* then make sure the 3000 port is not occupied else provide a different port in **.env** file.
+    * *If having any issues* then make sure the 27017 port is not occupied else provide a different port in **.env** file.
+ 
+
+
+ ## Note
+     * Before committing your code please run the below command.
+             ```
+              yarn lint:fix
+     ```
+   
+
 
 
   
